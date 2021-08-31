@@ -1,0 +1,13 @@
+logging:
+  level:
+    web: TRACE
+    org.springframework.web: TRACE
+
+myenergi:
+  hub:
+    serial:
+  zappi:
+    serial:
+  password:
+
+

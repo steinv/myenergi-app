@@ -6,7 +6,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**
- * TODO read error-codes.properties
+ * TODO read error-codes.properties Example error response: {"status":-9,"statustext":"","asn":"s7.myenergi.net","fwv":"3402S4047"}
  */
 public class ResultCode {
 

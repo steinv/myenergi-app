@@ -1,12 +1,16 @@
 package com.stein.myenergi.service;
 
-import com.stein.myenergi.api.calls.ZappiStatusCall;
-import com.stein.myenergi.api.calls.dto.Zappi;
-import com.stein.myenergi.api.calls.dto.ZappiStatusCallInput;
-import com.stein.myenergi.api.calls.dto.ZappiStatusCallOutput;
+import com.stein.myenergi.Device;
+import com.stein.myenergi.api.calls.DayCall;
+import com.stein.myenergi.api.calls.StatusCall;
+import com.stein.myenergi.api.calls.dto.DayCallInput;
+import com.stein.myenergi.api.calls.dto.HistoryDay;
+import com.stein.myenergi.api.calls.dto.StatusCallInput;
+import com.stein.myenergi.api.calls.dto.StatusCallOutput;
+import java.util.GregorianCalendar;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 /**
@@ -14,19 +18,24 @@ import org.springframework.util.StringUtils;
  */
 public class MyEnergiService {
 
-    private final ZappiStatusCall zappiStatusCall;
+    private final DayCall dayCall;
+    private final StatusCall statusCall;
 
+    @Autowired
     public MyEnergiService(
-            ZappiStatusCall zappiStatusCall
+            DayCall dayCall,
+            StatusCall statusCall
     ) {
-        this.zappiStatusCall = zappiStatusCall;
+        this.dayCall = dayCall;
+        this.statusCall = statusCall;
     }
 
-    public ZappiStatusCallOutput getZappiStatus(@Nullable String serial) {
-        if(StringUtils.hasText(serial)) {
-            return zappiStatusCall.fire(new ZappiStatusCallInput(serial));
-        } else {
-            return zappiStatusCall.fire(new ZappiStatusCallInput());
-        }
+    public StatusCallOutput getZappiStatus(@Nullable String serial) {
+        return statusCall.fire(new StatusCallInput(Device.ZAPPI, serial));
+    }
+
+    public HistoryDay[] getZappiHistory(String serial, GregorianCalendar date) {
+        // TODO Be sure to retain data in database for performance.
+        return dayCall.fire(new DayCallInput(Device.ZAPPI, serial, date)).getHistoryDay();
     }
 }

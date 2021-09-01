@@ -1,7 +1,6 @@
 package com.stein.myenergi.api;
 
 import java.time.Duration;
-import java.util.function.Supplier;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -18,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -60,8 +58,8 @@ public class MyEnergiConfiguration {
                     return requestFactory;
                 })
                 .rootUri(hostUri)
-                .setConnectTimeout(Duration.ofMinutes(2))
-                .setReadTimeout(Duration.ofMinutes(2))
+                .setConnectTimeout(Duration.ofSeconds(30))
+                .setReadTimeout(Duration.ofMinutes(3)) // looks like we get a 524 after 100 secs
                 .build();
     }
 

@@ -53,6 +53,7 @@ import lombok.NoArgsConstructor;
  * }
  * </code>
  */
-public class ZappiStatusCallOutput implements MyenergiCallOutput {
+public class StatusCallOutput implements MyenergiCallOutput {
+
     private Zappi[] zappi;
 }

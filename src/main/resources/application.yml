@@ -9,6 +9,8 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
 
+spring.jpa.hibernate.ddl-auto: create
+
 myenergi:
   hub.serial: ${MYENERGI_HUB_SERIAL}
   password: ${MYENERGI_PASSWORD}

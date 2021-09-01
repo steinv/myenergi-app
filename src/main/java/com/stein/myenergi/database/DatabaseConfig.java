@@ -1,4 +1,4 @@
-package com.stein.myenergi;
+package com.stein.myenergi.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

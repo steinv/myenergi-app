@@ -13,9 +13,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
-/**
- * TODO This service should persist data for performance and data retention
- */
 public class MyEnergiService {
 
     private final DayCall dayCall;
@@ -35,7 +32,11 @@ public class MyEnergiService {
     }
 
     public HistoryDay[] getZappiHistory(String serial, GregorianCalendar date) {
-        // TODO Be sure to retain data in database for performance.
+        /**
+         * TODO
+         * Check if the serial/date is already available in the db
+         * Be sure to retain data from "dayCall" in database for performance.
+         */
         return dayCall.fire(new DayCallInput(MyEnergiDevice.ZAPPI, serial, date)).getHistoryDay();
     }
 }

@@ -1,12 +1,12 @@
 package com.stein.myenergi.service;
 
-import com.stein.myenergi.Device;
+import com.stein.myenergi.MyEnergiDevice;
 import com.stein.myenergi.api.calls.DayCall;
 import com.stein.myenergi.api.calls.StatusCall;
-import com.stein.myenergi.api.calls.dto.DayCallInput;
-import com.stein.myenergi.api.calls.dto.HistoryDay;
-import com.stein.myenergi.api.calls.dto.StatusCallInput;
-import com.stein.myenergi.api.calls.dto.StatusCallOutput;
+import com.stein.myenergi.api.dto.DayCallInput;
+import com.stein.myenergi.api.dto.HistoryDay;
+import com.stein.myenergi.api.dto.StatusCallInput;
+import com.stein.myenergi.api.dto.StatusCallOutput;
 import java.util.GregorianCalendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -31,11 +31,11 @@ public class MyEnergiService {
     }
 
     public StatusCallOutput getZappiStatus(@Nullable String serial) {
-        return statusCall.fire(new StatusCallInput(Device.ZAPPI, serial));
+        return statusCall.fire(new StatusCallInput(MyEnergiDevice.ZAPPI, serial));
     }
 
     public HistoryDay[] getZappiHistory(String serial, GregorianCalendar date) {
         // TODO Be sure to retain data in database for performance.
-        return dayCall.fire(new DayCallInput(Device.ZAPPI, serial, date)).getHistoryDay();
+        return dayCall.fire(new DayCallInput(MyEnergiDevice.ZAPPI, serial, date)).getHistoryDay();
     }
 }

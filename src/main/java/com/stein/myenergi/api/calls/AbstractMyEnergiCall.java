@@ -1,7 +1,7 @@
 package com.stein.myenergi.api.calls;
 
-import com.stein.myenergi.api.calls.dto.MyenergiCallInput;
-import com.stein.myenergi.api.calls.dto.MyenergiCallOutput;
+import com.stein.myenergi.api.dto.MyenergiCallInput;
+import com.stein.myenergi.api.dto.MyenergiCallOutput;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;

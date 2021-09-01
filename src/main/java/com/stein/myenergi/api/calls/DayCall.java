@@ -1,7 +1,7 @@
 package com.stein.myenergi.api.calls;
 
-import com.stein.myenergi.api.calls.dto.DayCallInput;
-import com.stein.myenergi.api.calls.dto.DayCallOutput;
+import com.stein.myenergi.api.dto.DayCallInput;
+import com.stein.myenergi.api.dto.DayCallOutput;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class DayCall extends AbstractMyEnergiCall<DayCallInput, DayCallOutput> {
     @Override
         // example cgi-jday-Z16189184-2021-8-30
     String getCommand(DayCallInput input) {
-        return String.format(COMMAND, input.getDevice().toString())
+        return String.format(COMMAND, input.getMyEnergiDevice().toString())
                 + input.getSerial()
                 + "-"
                 + dateTimeFormatter.format(input.getDate().toZonedDateTime());

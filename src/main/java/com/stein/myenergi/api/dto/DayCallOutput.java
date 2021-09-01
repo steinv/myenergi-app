@@ -1,4 +1,4 @@
-package com.stein.myenergi.api.calls.dto;
+package com.stein.myenergi.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashMap;

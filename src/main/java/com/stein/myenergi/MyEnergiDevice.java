@@ -1,6 +1,6 @@
 package com.stein.myenergi;
 
-public enum Device {
+public enum MyEnergiDevice {
     EDDI("E"),
     HARVY("H"),
     ZAPPI("Z"),
@@ -10,7 +10,7 @@ public enum Device {
 
     private final String code;
 
-    Device(String code) {
+    MyEnergiDevice(String code) {
         this.code = code;
     }
 

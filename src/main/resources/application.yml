@@ -4,10 +4,7 @@ logging:
     org.springframework.web: TRACE
 
 myenergi:
-  hub:
-    serial:
-  zappi:
-    serial:
-  password:
+  hub.serial: ${MYENERGI_HUB_SERIAL}
+  password: ${MYENERGI_PASSWORD}
 
 

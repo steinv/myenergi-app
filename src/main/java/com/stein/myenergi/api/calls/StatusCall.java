@@ -1,7 +1,7 @@
 package com.stein.myenergi.api.calls;
 
-import com.stein.myenergi.api.calls.dto.StatusCallInput;
-import com.stein.myenergi.api.calls.dto.StatusCallOutput;
+import com.stein.myenergi.api.dto.StatusCallInput;
+import com.stein.myenergi.api.dto.StatusCallOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -19,7 +19,7 @@ public class StatusCall extends AbstractMyEnergiCall<StatusCallInput, StatusCall
 
     @Override
     String getCommand(StatusCallInput input) {
-        String cmd = String.format(COMMAND, input.getDevice().toString());
+        String cmd = String.format(COMMAND, input.getMyEnergiDevice().toString());
 
         if (StringUtils.hasText(input.getSerial())) {
             return cmd + input.getSerial();

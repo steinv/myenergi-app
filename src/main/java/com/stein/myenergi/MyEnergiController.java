@@ -1,7 +1,7 @@
-package com.stein.myenergi.api;
+package com.stein.myenergi;
 
-import com.stein.myenergi.api.calls.dto.HistoryDay;
-import com.stein.myenergi.api.calls.dto.Zappi;
+import com.stein.myenergi.api.dto.HistoryDay;
+import com.stein.myenergi.api.dto.Zappi;
 import com.stein.myenergi.service.MyEnergiService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.stein.myenergi.api.calls;
+package com.stein.myenergi.api;
 
 import java.io.FileInputStream;
 import java.io.IOException;

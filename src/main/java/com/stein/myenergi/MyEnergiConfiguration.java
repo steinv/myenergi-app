@@ -1,4 +1,4 @@
-package com.stein.myenergi.api;
+package com.stein.myenergi;
 
 import java.time.Duration;
 import org.apache.http.HttpHost;
@@ -22,9 +22,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class MyEnergiConfiguration {
-
-    @Value("${myenergi.zappi.serial}")
-    public String zappiSerial;
 
     @Value("${myenergi.hub.serial}")
     private String hubSerial;

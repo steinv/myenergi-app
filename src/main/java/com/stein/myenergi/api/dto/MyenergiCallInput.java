@@ -1,4 +1,4 @@
-package com.stein.myenergi.api.calls.dto;
+package com.stein.myenergi.api.dto;
 
 public interface MyenergiCallInput {
     Object[] getParameters();

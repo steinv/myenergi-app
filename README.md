@@ -1,3 +1,11 @@
+# myenergi-backend
+
+Spring boot application to parse and store data from myenergi-api
+
+ * GET /zappi
+ * GET /zappi/${id}
+ * GET /zappi/${id}/${date: yyyy-MM-dd}/
+ 
 # MyEnergi-App-Api
  [Copied from MyEnergi-App-Api](https://github.com/twonk/MyEnergi-App-Api)
 ## Investigation of the MyEnergi App 
@@ -535,20 +543,30 @@ Data from later in the array as an example.
 		"mon": 6,
 		"yr": 2019,
 		"imp": 42900,
+		"exp": xxxxx,
 		"gen": 180,
+		"gep": xxxxx,
+		"h1d": xxxxx,
+		"h2d": xxxxx,
+		"h3d": xxxxx,
 		"v1": 2448,
 		"frq": 5007,
 		"nect1": 42900
 	}, {
-		"min": 1,
-		"dow": "Sat",
-		"dom": 8,
-		"mon": 6,
-		"yr": 2019,
-		"imp": 42900,
-		"gen": 180,
-		"v1": 2446,
-		"frq": 5006,
+		"min": 1,		//Minute
+        "dow": "Sat",	//Day of week
+		"dom": 8,		//Day of month
+		"mon": 6,		//Month
+		"yr": 2019,		//Year
+		"imp": 42900,	//Imported Joules this minute; divide by 60 get average Watts; divide by 3600000 to get kWh
+		"exp": xxxxx,	//Exported Joules
+		"gen": 180,		//???
+		"gep": xxxxx,	//Generated Joules
+		"h1d": xxxxx,	//Phase 1 used Joules for charging
+		"h2d": xxxxx,	//Phase 2 used Joules for charging
+		"h3d": xxxxx,	//Phase 3 used Joules for charging
+		"v1": 2446,		//Voltage
+		"frq": 5006,	//Frequency
 		"nect1": 42900
 	}, 
 ...

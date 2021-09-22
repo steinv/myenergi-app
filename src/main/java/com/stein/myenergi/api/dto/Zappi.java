@@ -5,10 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Zappi {
     @JsonProperty("che") private int chargeAddedInKWh;
@@ -44,7 +46,7 @@ public class Zappi {
     @JsonProperty("sbh") private int smartBoostStartTimeHour;
     @JsonProperty("sbk") private int smartBoostKWhToAdd;
     @JsonProperty("sbm") private int smartBoostStartTimeMinute;
-    @JsonProperty("sno") private int serialNumber;
+    @JsonProperty("sno") private String serialNumber;
     // Status  1=Paused 3=Diverting/Charging 5=Complete
     @JsonProperty("sta") private int chargingStatus;
     @JsonProperty("tbh") private int boostHour;

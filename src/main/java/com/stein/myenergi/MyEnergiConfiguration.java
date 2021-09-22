@@ -1,6 +1,6 @@
 package com.stein.myenergi;
 
-import java.time.Duration;
+import com.stein.myenergi.transformers.HistoryModelMapper;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -13,12 +13,17 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.BasicHttpContext;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.Duration;
+
+import static org.modelmapper.config.Configuration.AccessLevel.PACKAGE_PRIVATE;
 
 @Configuration
 public class MyEnergiConfiguration {
@@ -29,6 +34,16 @@ public class MyEnergiConfiguration {
     @Value("${myenergi.password}")
     private String password;
 
+
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(PACKAGE_PRIVATE);
+        mapper.addConverter(new HistoryModelMapper());
+        return mapper;
+    }
 
     @Bean
     public RestTemplate myEnergiRestTemplate(RestTemplateBuilder restTemplateBuilder) {

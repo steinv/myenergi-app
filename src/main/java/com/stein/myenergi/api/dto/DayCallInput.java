@@ -1,18 +1,19 @@
 package com.stein.myenergi.api.dto;
 
-import com.stein.myenergi.MyEnergiDevice;
-import java.util.GregorianCalendar;
+import com.stein.myenergi.DeviceType;
 import lombok.Getter;
+
+import java.util.GregorianCalendar;
 
 @Getter
 public class DayCallInput implements MyenergiCallInput {
 
-    private final MyEnergiDevice myEnergiDevice;
+    private final DeviceType deviceType;
     private final String serial;
     private final GregorianCalendar date;
 
-    public DayCallInput(MyEnergiDevice myEnergiDevice, String serial, GregorianCalendar date) {
-        this.myEnergiDevice = myEnergiDevice;
+    public DayCallInput(DeviceType deviceType, String serial, GregorianCalendar date) {
+        this.deviceType = deviceType;
         this.serial = serial;
         this.date = date;
     }

@@ -2,41 +2,62 @@ package com.stein.myenergi;
 
 import com.stein.myenergi.api.dto.HistoryDay;
 import com.stein.myenergi.api.dto.Zappi;
-import com.stein.myenergi.service.MyEnergiService;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import com.stein.myenergi.database.HistoryRepository;
+import com.stein.myenergi.database.entities.HistoryEntity;
+import com.stein.myenergi.database.entities.ZappiEntity;
+import com.stein.myenergi.service.MyEnergiApiService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.GregorianCalendar;
+
 @RestController
 public class MyEnergiController {
 
-    private final MyEnergiService service;
+    private final ModelMapper modelMapper;
+    private final MyEnergiApiService apiService;
+    private final HistoryRepository historyRepository;
 
     @Autowired
     public MyEnergiController(
-            MyEnergiService service
+            ModelMapper modelMapper,
+            MyEnergiApiService apiService,
+            HistoryRepository historyRepository
     ) {
-        this.service = service;
+        this.modelMapper = modelMapper;
+        this.apiService = apiService;
+        this.historyRepository = historyRepository;
     }
 
     @GetMapping("/zappi")
     public Zappi[] getAllZappiStatus() {
-        return this.service.getZappiStatus(null).getZappi();
+        return this.apiService.getZappiStatus(null).getZappi();
     }
 
     @GetMapping("/zappi/{serial}")
     public Zappi getSpecificZappi(@PathVariable("serial") String serial) {
-        return this.service.getZappiStatus(serial).getZappi()[0];
+        return this.apiService.getZappiStatus(serial).getZappi()[0];
     }
 
-    @GetMapping("/zappi/{serial}/{date}")
-    public HistoryDay[] getZappiHistoryByDate(@PathVariable("serial") String serial, @PathVariable("date") String date) throws ParseException {
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(date));
-        return this.service.getZappiHistory(serial, gregorianCalendar);
+    @GetMapping("/zappi/{serial}/{year}/{month}/{day}")
+    public HistoryEntity getZappiHistoryByDate(
+            @PathVariable("serial") String serial,
+            @PathVariable("year") int year,
+            @PathVariable("month") int month,
+            @PathVariable("day") int day) {
+        // month is 0 based so reduce with 1
+        GregorianCalendar date = new GregorianCalendar(year, month - 1, day);
+
+        return this.historyRepository.findById(date.getTime()).orElseGet(() -> {
+            HistoryDay[] zappiHistory = this.apiService.getZappiHistory(serial, date);
+            HistoryEntity entity = modelMapper.map(zappiHistory, HistoryEntity.class);
+            entity.setDate(date.getTime());
+            entity.setZappi(new ZappiEntity(serial));
+            return entity;
+        });
+
     }
 }

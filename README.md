@@ -4,8 +4,21 @@ Spring boot application to parse and store data from myenergi-api
 
  * GET /zappi
  * GET /zappi/${id}
- * GET /zappi/${id}/${date: yyyy-MM-dd}/
- 
+ * GET /zappi/${id}/${year}/${month}/${day}
+
+## setup
+
+In order to successfully start the application you'll need to provide a few environment specific variables
+
+### environment variables
+ * SPRING_DATASOURCE_URL
+ * SPRING_DATASOURCE_USERNAME
+ * SPRING_DATASOURCE_PASSWORD
+ * MYENERGI_HUB_SERIAL
+ * MYENERGI_PASSWORD
+
+-------
+
 # MyEnergi-App-Api
  [Copied from MyEnergi-App-Api](https://github.com/twonk/MyEnergi-App-Api)
 ## Investigation of the MyEnergi App 

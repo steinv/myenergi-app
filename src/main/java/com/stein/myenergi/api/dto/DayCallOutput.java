@@ -1,8 +1,9 @@
 package com.stein.myenergi.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.HashMap;
 import lombok.Getter;
+
+import java.util.HashMap;
 
 @Getter
 @JsonIgnoreProperties

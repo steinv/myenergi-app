@@ -1,12 +1,11 @@
 package com.stein.myenergi.database.entities;
 
-import java.io.Serializable;
-import java.util.List;
+import lombok.Getter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.Getter;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -19,7 +18,4 @@ public class ZappiEntity implements Serializable {
 
     @Id
     private String serial;
-
-    @OneToMany(targetEntity = HistoryEntity.class)
-    private List<HistoryEntity> history;
 }

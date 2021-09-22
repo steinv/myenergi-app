@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HistoryDay {
 
@@ -31,15 +33,15 @@ public class HistoryDay {
     private int exportedJoules = 0;
     // ???
     @JsonProperty("gen")
-    private int generated;
+    private int generated = 0;
     @JsonProperty("gep")
-    private int generatedJoules;
+    private int generatedJoules = 0;
     @JsonProperty("h1d")
-    private int phase1JoulesForCharging;
+    private int phase1JoulesForCharging = 0;
     @JsonProperty("h2d")
-    private int phase2JoulesForCharging;
+    private int phase2JoulesForCharging = 0;
     @JsonProperty("h3d")
-    private int phase3JoulesForCharging;
+    private int phase3JoulesForCharging = 0;
     @JsonProperty("v1")
     private int voltage;
     @JsonProperty("frq")

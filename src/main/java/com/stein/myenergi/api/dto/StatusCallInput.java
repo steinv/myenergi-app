@@ -1,25 +1,25 @@
 package com.stein.myenergi.api.dto;
 
-import com.stein.myenergi.MyEnergiDevice;
+import com.stein.myenergi.DeviceType;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
 @Getter
 public class StatusCallInput implements MyenergiCallInput {
 
-    private MyEnergiDevice myEnergiDevice;
+    private DeviceType deviceType;
     private String serial;
 
     public StatusCallInput() {
-        this.myEnergiDevice = MyEnergiDevice.WILDCARD;
+        this.deviceType = DeviceType.WILDCARD;
     }
 
-    public StatusCallInput(MyEnergiDevice d) {
-        this.myEnergiDevice = d;
+    public StatusCallInput(DeviceType d) {
+        this.deviceType = d;
     }
 
-    public StatusCallInput(MyEnergiDevice d, @Nullable String serial) {
-        this.myEnergiDevice = d;
+    public StatusCallInput(DeviceType d, @Nullable String serial) {
+        this.deviceType = d;
         this.serial = serial;
     }
 

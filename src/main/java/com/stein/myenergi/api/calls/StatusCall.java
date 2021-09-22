@@ -19,7 +19,7 @@ public class StatusCall extends AbstractMyEnergiCall<StatusCallInput, StatusCall
 
     @Override
     String getCommand(StatusCallInput input) {
-        String cmd = String.format(COMMAND, input.getMyEnergiDevice().toString());
+        String cmd = String.format(COMMAND, input.getDeviceType().toString());
 
         if (StringUtils.hasText(input.getSerial())) {
             return cmd + input.getSerial();

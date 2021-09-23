@@ -27,6 +27,6 @@ public class DayCall extends AbstractMyEnergiCall<DayCallInput, DayCallOutput> {
         return String.format(COMMAND, input.getDeviceType().toString())
                 + input.getSerial()
                 + "-"
-                + dateTimeFormatter.format(input.getDate().toZonedDateTime());
+                + dateTimeFormatter.format(input.getDate().toInstant());
     }
 }

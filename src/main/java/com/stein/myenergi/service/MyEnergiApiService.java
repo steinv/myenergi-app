@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 @Service
 public class MyEnergiApiService {
@@ -31,7 +31,7 @@ public class MyEnergiApiService {
         return statusCall.fire(new StatusCallInput(DeviceType.ZAPPI, serial));
     }
 
-    public HistoryDay[] getZappiHistory(String serial, GregorianCalendar date) {
+    public HistoryDay[] getZappiHistory(String serial, Calendar date) {
         return dayCall.fire(new DayCallInput(DeviceType.ZAPPI, serial, date)).getHistoryDay();
     }
 }

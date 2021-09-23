@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 @RestController
 public class MyEnergiController {
@@ -49,15 +49,15 @@ public class MyEnergiController {
             @PathVariable("month") int month,
             @PathVariable("day") int day) {
         // month is 0 based so reduce with 1
-        GregorianCalendar date = new GregorianCalendar(year, month - 1, day);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, day);
 
-        return this.historyRepository.findById(date.getTime()).orElseGet(() -> {
-            HistoryDay[] zappiHistory = this.apiService.getZappiHistory(serial, date);
+        return this.historyRepository.findById(calendar.getTime()).orElseGet(() -> {
+            HistoryDay[] zappiHistory = this.apiService.getZappiHistory(serial, calendar);
             HistoryEntity entity = modelMapper.map(zappiHistory, HistoryEntity.class);
-            entity.setDate(date.getTime());
+            entity.setDate(calendar.getTime());
             entity.setZappi(new ZappiEntity(serial));
             return entity;
         });
-
     }
 }

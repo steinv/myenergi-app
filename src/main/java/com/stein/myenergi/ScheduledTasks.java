@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @Component
 public class ScheduledTasks {
@@ -33,9 +32,9 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 0 6 * * *")
     public void persistHistoricZappiData() {
         Zappi[] zappis = this.service.getZappiStatus(null).getZappi();
-        GregorianCalendar[] dates = this.datesToFetch();
+        Calendar[] dates = this.datesToFetch();
 
-        for(GregorianCalendar date: dates) {
+        for(Calendar date: dates) {
             for (Zappi zappi : zappis) {
                 HistoryDay[] zappiHistory = this.service.getZappiHistory(zappi.getSerialNumber(), date);
                 HistoryEntity entity = modelMapper.map(zappiHistory, HistoryEntity.class);
@@ -48,10 +47,10 @@ public class ScheduledTasks {
     }
 
     // TODO determine which date(s) to fetch
-    private GregorianCalendar[] datesToFetch() {
-        GregorianCalendar yesterday = new GregorianCalendar();
+    private Calendar[] datesToFetch() {
+        Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
 
-        return new GregorianCalendar[]{ yesterday };
+        return new Calendar[]{ yesterday };
     }
 }

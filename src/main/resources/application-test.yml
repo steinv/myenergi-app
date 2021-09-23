@@ -1,5 +1,0 @@
-# TODO set up dummy datasource for unit tests
-spring.datasource:
-  url: ''
-  username: ''
-  password: ''

@@ -1,0 +1,7 @@
+# TODO set up dummy datasource for unit tests
+logging:
+  level:
+    root: INFO
+    web: TRACE
+    org.springframework.web: TRACE
+

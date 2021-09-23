@@ -12,6 +12,10 @@ import java.io.Serializable;
 @Table(name = "zappi")
 public class ZappiEntity implements Serializable {
 
+    public ZappiEntity() {
+        // default constructor
+    }
+
     public ZappiEntity(String serial) {
         this.serial = serial;
     }

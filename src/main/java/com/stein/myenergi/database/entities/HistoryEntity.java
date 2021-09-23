@@ -18,7 +18,8 @@ public class HistoryEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "zappiSerial")
     private ZappiEntity zappi;
 
     // electricity in joules imported from the net
@@ -37,6 +38,4 @@ public class HistoryEntity implements Serializable {
 
     // original data from api
     private HistoryDay[] history;
-
-    // TODO add aggregated fields
 }

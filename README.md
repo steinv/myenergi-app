@@ -1,27 +1,15 @@
-# myenergi-backend
+# myenergi-app
 
-Spring boot application to parse and store data from myenergi-api
+## Backend
 
- * GET /zappi
- * GET /zappi/${id}
- * GET /zappi/${id}/${year}/${month}/${day}
+A java spring boot backend to access myenergi data.
+A cron-job will scrape and persist data into a database. In the future a frontend webpage will be made to easily and quickly access historical data. E.g. yearly overview of how much KWh is used to charge your EV.
+
+[Readme](backend/README.md)
 
 
-## setup
+## Frontend 
 
-In order to successfully start the application you'll need to provide a few environment specific variables
+An angular frontend that connects to the Java spring boot application and visualizes the data.
 
-### environment variables
- * SPRING_DATASOURCE_URL
- * SPRING_DATASOURCE_USERNAME
- * SPRING_DATASOURCE_PASSWORD
- * MYENERGI_HUB_SERIAL
- * MYENERGI_PASSWORD
- 
-## demo 
-
-Application hosted on heroku
- * [Swagger](https://myenergi-backend.herokuapp.com/swagger-ui.html)
- * [Status call](https://myenergi-backend.herokuapp.com/zappi)
- * [Zappi '16189184'](https://myenergi-backend.herokuapp.com/zappi/16189184)
- * [History 23th of September 2021 for zappi '16189184'](https://myenergi-backend.herokuapp.com/zappi/16189184/2021/09/23)
+[Readme](frontend/README.md)

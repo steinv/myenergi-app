@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    justify-content: space-around;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 240px;
+    height: 90px;
+    cursor: pointer;
+
+    mat-icon {
+        font-size: 3rem;
+        width: auto;
+        height: auto;
+        margin-bottom: .3rem;
+    }
+}

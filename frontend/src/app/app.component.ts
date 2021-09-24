@@ -7,11 +7,8 @@ import { MyenergiService } from './myenergi.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'myenergi-frontend';
-
-  public constructor(private readonly _myenergiService: MyenergiService) {}
+  public constructor() {}
 
   public ngOnInit(): void {
-    this._myenergiService.getStatus().subscribe(r => console.log(r));
   }
 }

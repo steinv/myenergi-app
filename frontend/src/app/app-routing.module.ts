@@ -5,15 +5,6 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   {
     path: '', component: AppComponent
-  },
-  {
-    path: 'solar', component: AppComponent
-  },
-  {
-    path: 'home', component: AppComponent
-  },
-  {
-    path: 'car', component: AppComponent
   }
 ];
 

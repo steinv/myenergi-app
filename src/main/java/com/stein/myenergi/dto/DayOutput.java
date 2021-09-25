@@ -3,9 +3,17 @@ package com.stein.myenergi.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @Builder
 public class DayOutput {
+    // date on which this data was collected
+    private Date date;
+
+    // serial of which device this historic data is
+    private String serial;
+
     // electricity in joules imported from the net
     private int imported;
     // electricity in joules exported to the net

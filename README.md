@@ -5,8 +5,9 @@ Spring boot application to parse and store data from myenergi-api
 Getting data:
 * GET /zappi
 * GET /zappi/${id}
-* GET /zappi/${id}/${year}/${month}/${day}
-
+* GET /zappi/${id}/${year}-${month}-${day}
+* GET /zappi/${id}/${year}-${month}-${day}/${year}-${month}-${day}
+* 
 Persisting data into the repository
 * POST /zappi/${id}
 

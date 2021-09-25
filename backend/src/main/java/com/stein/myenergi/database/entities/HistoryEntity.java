@@ -1,26 +1,20 @@
 package com.stein.myenergi.database.entities;
 
 import com.stein.myenergi.api.dto.HistoryDay;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "history")
-@Getter
-@Setter
+@Data
 public class HistoryEntity implements Serializable {
 
-    @Id
-    @Temporal(TemporalType.DATE)
-    private Date date;
-
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "zappiSerial")
-    private ZappiEntity zappi;
+    @EmbeddedId
+    private HistoryId id;
 
     // electricity in joules imported from the net
     private int imported;

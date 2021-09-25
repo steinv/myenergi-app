@@ -8,9 +8,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
+  private date = new Date();
   public dateRange = new FormGroup({
-    start: new FormControl(new Date()),
-    end: new FormControl(new Date())
+    start: new FormControl(this.date),
+    end: new FormControl(this.date)
   });
   
   public constructor() {}

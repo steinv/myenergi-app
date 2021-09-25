@@ -5,7 +5,6 @@ import com.stein.myenergi.api.dto.Zappi;
 import com.stein.myenergi.database.HistoryRepository;
 import com.stein.myenergi.database.entities.HistoryEntity;
 import com.stein.myenergi.database.entities.HistoryId;
-import com.stein.myenergi.database.entities.ZappiEntity;
 import com.stein.myenergi.dto.DayOutput;
 import com.stein.myenergi.dto.HistoryOutput;
 import com.stein.myenergi.dto.PersistInput;
@@ -67,7 +66,7 @@ public class MyEnergiController {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1, day);
 
-        HistoryId id = new HistoryId(calendar.getTime(), new ZappiEntity(serial));
+        HistoryId id = new HistoryId(calendar.getTime(), serial);
         HistoryEntity entity = this.historyRepository.findById(id).orElseGet(() -> {
             HistoryDay[] zappiHistory = this.apiService.getZappiHistory(serial, calendar);
             return modelMapper.map(zappiHistory, HistoryEntity.class);
@@ -91,7 +90,7 @@ public class MyEnergiController {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1);
 
-        HistoryId id = new HistoryId(calendar.getTime(), new ZappiEntity(serial));
+        HistoryId id = new HistoryId(calendar.getTime(), serial);
         HistoryEntity entity = this.historyRepository.findById(id).orElseGet(() -> {
             HistoryDay[] zappiHistory = this.apiService.getZappiHistory(serial, calendar);
             return modelMapper.map(zappiHistory, HistoryEntity.class);

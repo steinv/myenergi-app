@@ -3,13 +3,17 @@
 ## Backend
 
 A java spring boot backend to access myenergi data.
-A cron-job will scrape and persist data into a database. In the future a frontend webpage will be made to easily and quickly access historical data. E.g. yearly overview of how much KWh is used to charge your EV.
+A cron-job will scrape and persist data into a database.
 
-[Readme](backend/README.md)
+ * [demo on heroku](https://myenergi-backend.herokuapp.com/zappi)
+ * [readme backend](backend/README.md)
 
 
 ## Frontend 
 
-An angular frontend that connects to the Java spring boot application and visualizes the data.
+An angular frontend that connects to the Java spring boot application.
+Easily and quickly access historical data. E.g. yearly overview of how much KWh is used to charge your EV.
 
-[Readme](frontend/README.md)
+
+ * [demo on netlify](https://myenergi.netlify.app/)
+ * [readme frontend](frontend/README.md)

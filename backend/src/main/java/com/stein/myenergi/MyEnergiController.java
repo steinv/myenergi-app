@@ -40,10 +40,10 @@ public class MyEnergiController {
         return this.apiService.getZappiStatus(serial).getZappi()[0];
     }
 
-    @PostMapping("/zappi/{serial}/")
+    @PostMapping("/zappi/{serial}")
     public void persistZappiData(
             @PathVariable("serial") String serial,
-            @RequestBody PersistInput input
+            @RequestBody(required = false) PersistInput input
     ){
         if(input != null && input.getDates() != null && !input.getDates().isEmpty()) {
             for(Calendar date: input.getDates()) {

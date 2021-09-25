@@ -2,7 +2,6 @@ package com.stein.myenergi.database;
 
 import com.stein.myenergi.database.entities.HistoryEntity;
 import com.stein.myenergi.database.entities.HistoryId;
-import com.stein.myenergi.database.entities.ZappiEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ class HistoryRepositoryTest {
     private HistoryRepository repo;
 
     private Calendar calendar;
-    private static final ZappiEntity ZAPPI_ENTITY = new ZappiEntity("DUMMY");
+    private static final String DUMMY_SERIAL = "12345678";
     private static final HistoryEntity HISTORY_ENTITY = new HistoryEntity();
 
     @BeforeEach
@@ -30,7 +29,7 @@ class HistoryRepositoryTest {
         calendar = Calendar.getInstance();
         calendar.set(2021, Calendar.SEPTEMBER, 23);
 
-        HISTORY_ENTITY.setId(new HistoryId(calendar.getTime(), ZAPPI_ENTITY));
+        HISTORY_ENTITY.setId(new HistoryId(calendar.getTime(), DUMMY_SERIAL));
         HISTORY_ENTITY.setCharged(1000);
         HISTORY_ENTITY.setImported(6000);
         HISTORY_ENTITY.setExported(3000);
@@ -39,6 +38,6 @@ class HistoryRepositoryTest {
     public void test_insertHistoryEntity_shouldAddEntityToDb() {
         repo.save(HISTORY_ENTITY);
 
-        assertTrue(repo.findById(new HistoryId(calendar.getTime(), ZAPPI_ENTITY)).get().equals(HISTORY_ENTITY));
+        assertTrue(repo.findById(new HistoryId(calendar.getTime(), DUMMY_SERIAL)).get().equals(HISTORY_ENTITY));
     }
 }

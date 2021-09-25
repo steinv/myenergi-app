@@ -2,10 +2,13 @@
 
 Spring boot application to parse and store data from myenergi-api
 
+Getting data:
 * GET /zappi
 * GET /zappi/${id}
 * GET /zappi/${id}/${year}/${month}/${day}
 
+Persisting data into the repository
+* POST /zappi/${id}
 
 ## setup
 
@@ -20,14 +23,14 @@ In order to successfully start the application you'll need to provide a few envi
 
 ### deploying on heroku
 
-1. create a subtree on git to connect
+1. If you fork this repository, create a subtree on git to connect
    ```
    git subtree push --prefix backend origin heroku
    ```
 
-2. create a postgres database on heroku
+2. create a postgres database on heroku to store your data
 
-3. provide environment variables
+3. provide environment variables that connect to your myenergi hub
 
 4. setup automatic deployment from the `heroku`-branch
 

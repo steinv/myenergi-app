@@ -9,10 +9,6 @@ export interface TODO {
 }
 
 export interface HistoryCall {
-  date: string;
-  zappi: {
-    serial: string,
-  },
   generated: number;
   imported: number;
   exported: number;

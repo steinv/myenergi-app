@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
-import * as moment from 'moment';
 import { Label } from 'ng2-charts';
 import { map } from 'rxjs/operators';
 import { MyenergiService } from '../myenergi.service';
@@ -35,7 +34,7 @@ export class ChartComponent implements OnInit {
 
     this._service.getHistory(d).pipe(
       map(history => {;
-        this.barChartLabels = [this._datePipe.transform(new Date(history.date), 'dd/MM/yyyy')!];
+        this.barChartLabels = [this._datePipe.transform(d, 'dd/MM/yyyy')!];
         this.barChartData = [
           {
             data: [history.consumed/3600000],

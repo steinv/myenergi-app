@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    margin: 1rem 0.5rem;
+
+    @media(min-width: 600px) {
+        width: 70%;
+        margin: 3rem auto;
+    }
+}
+
+.chart-container {
+    margin: 3rem auto;
+}

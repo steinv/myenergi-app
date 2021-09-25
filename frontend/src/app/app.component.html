@@ -1,4 +1,16 @@
 
-<div class="my-20 mx-auto max-w-screen-xl">
-  <app-chart></app-chart>
+<mat-form-field appearance="legacy">
+  <mat-label>Choose Date Range</mat-label>
+  <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange">
+    <input matStartDate formControlName="start" placeholder="Start Date">
+    <input matEndDate formControlName="end" placeholder="End Date">
+  </mat-date-range-input>
+
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+
+</mat-form-field>
+
+<div class="chart-container">
+  <app-chart [start]="dateRange.controls['start'].value"  [end]="dateRange.controls['end'].value"></app-chart>
 </div>

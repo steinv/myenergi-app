@@ -8,22 +8,41 @@ import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
 import { Configuration } from './configuration';
 import { MyenergiService } from './myenergi.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CustomDateAdapter } from './custom-date-adapter';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ChartsModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ],
   providers: [
     MyenergiService,
     DatePipe, 
-    Configuration,     
+    Configuration,
+    {
+      provide: DateAdapter, 
+      useClass: CustomDateAdapter 
+    },
+    { 
+      provide: MAT_DATE_LOCALE, 
+      useValue:  'en-UK', 
+    },   
     {
       provide: APP_INITIALIZER,
       multi: true,

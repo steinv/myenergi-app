@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,6 +10,11 @@ export interface TODO {
 }
 
 export interface HistoryCall {
+  days: Array<DayCall>;
+}
+export interface DayCall {
+  date: string;
+  serial: string;
   generated: number;
   imported: number;
   exported: number;
@@ -19,7 +25,11 @@ export interface HistoryCall {
 @Injectable()
 export class MyenergiService {
 
-  constructor(private readonly _httpClient: HttpClient, private readonly _config: Configuration) { }
+  constructor(
+    private readonly _httpClient: HttpClient, 
+    private readonly _config: Configuration,
+    private readonly _datePipe: DatePipe,
+  ) { }
 
   public getStatus(): Observable<TODO> {
     return this.doCall<TODO>('/zappi');
@@ -30,14 +40,19 @@ export class MyenergiService {
     return this.doCall<TODO>('/zappi/'+zappiSerial);
   }
 
-  public getHistory(date: Date, serial?: string): Observable<HistoryCall> {
+  public getHistoryOnDate(date: Date, serial?: string): Observable<DayCall> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<HistoryCall>('/zappi/'+zappiSerial+"/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate());
+    return this.doCall<DayCall>('/zappi/'+zappiSerial+"/"+this._datePipe.transform(date, 'yyyy-MM-dd'));
+  }
+
+  public getHistoryInRage(start: Date, end: Date, serial?: string): Observable<HistoryCall> {
+    const zappiSerial = serial || this._config.zappi;
+    return this.doCall<HistoryCall>('/zappi/'+zappiSerial+"/"+this._datePipe.transform(start, 'yyyy-MM-dd')+"/"+this._datePipe.transform(end, 'yyyy-MM-dd'));
   }
 
   public liveView(serial: string, date: Date): Observable<TODO> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<TODO>('/zappi/'+zappiSerial+"/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate());
+    return this.doCall<TODO>('/zappi/'+zappiSerial+"/"+this._datePipe.transform(date, 'yyyy-MM-dd'));
   }
 
   private doCall<T>(resource: string) {

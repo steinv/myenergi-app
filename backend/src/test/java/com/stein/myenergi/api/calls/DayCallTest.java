@@ -24,7 +24,7 @@ class DayCallTest {
     @Test
     void getCommand_zappi3rdOfJune2021_returnsCommand() {
         GregorianCalendar thirdOfJune2021 = new GregorianCalendar(2021, 5, 3);
-        String cmd = this.dayCall.getCommand(new DayCallInput(DeviceType.ZAPPI, DUMMY_SERIAL, thirdOfJune2021));
+        String cmd = this.dayCall.getCommand(new DayCallInput(DeviceType.ZAPPI, DUMMY_SERIAL, thirdOfJune2021.getTime()));
 
         assertThat(cmd).isEqualTo(String.format(DayCall.COMMAND, DeviceType.ZAPPI) + DUMMY_SERIAL + "-2021-6-3");
     }
@@ -32,7 +32,7 @@ class DayCallTest {
     @Test
     void fire() {
         GregorianCalendar thirtyFirstOfAugust2021 = new GregorianCalendar(2021, 7, 31);
-        DayCallOutput dayCallOutput = this.dayCall.fire(new DayCallInput(DeviceType.ZAPPI, "16189184", thirtyFirstOfAugust2021));
+        DayCallOutput dayCallOutput = this.dayCall.fire(new DayCallInput(DeviceType.ZAPPI, "16189184", thirtyFirstOfAugust2021.getTime()));
 
         assertThat(dayCallOutput.getHistoryDay()).isNotEmpty();
     }

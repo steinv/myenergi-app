@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
+import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
@@ -29,9 +30,9 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 0 6 * * *")
     public void persistHistoricZappiData() {
         Zappi[] zappis = this.apiService.getZappiStatus(null).getZappi();
-        Calendar[] dates = this.datesToFetch();
+        Date[] dates = this.datesToFetch();
 
-        for(Calendar date: dates) {
+        for(Date date: dates) {
             for (Zappi zappi : zappis) {
                 this.service.persistZappiData(zappi.getSerialNumber(), date);
             }
@@ -39,10 +40,10 @@ public class ScheduledTasks {
     }
 
     // TODO determine which date(s) to fetch
-    private Calendar[] datesToFetch() {
+    private Date[] datesToFetch() {
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
 
-        return new Calendar[]{ yesterday };
+        return new Date[]{ yesterday.getTime() };
     }
 }

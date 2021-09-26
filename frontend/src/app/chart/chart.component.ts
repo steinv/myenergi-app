@@ -1,9 +1,9 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-import { map } from 'rxjs/operators';
-import { MyenergiService } from '../myenergi.service';
+import { map, tap } from 'rxjs/operators';
+import { DayCall, MyenergiService } from '../myenergi.service';
 
 @Component({
   selector: 'app-chart',
@@ -19,6 +19,27 @@ export class ChartComponent implements OnChanges {
   @Input()
   end?: Date;
 
+  private consumed: ChartDataSets = {
+    label: 'consumed',
+    data: [],
+  };
+  private evCharged: ChartDataSets = {
+    data: [],
+    label: 'EV charged'
+  };         
+  private solarPanels: ChartDataSets = {
+    data: [],
+    label: 'solar-panels'
+  };
+  private imported: ChartDataSets =  {
+    data: [],
+    label: 'imported'
+  };
+  private exported: ChartDataSets = {
+    data: [],
+    label: 'exported'
+  };
+
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -26,7 +47,7 @@ export class ChartComponent implements OnChanges {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
-  public barChartData: ChartDataSets[] = [];
+  public barChartData: ChartDataSets[] = [this.consumed, this.evCharged, this.solarPanels, this.imported, this.exported];
   
   public constructor(
     private readonly _changeDetector: ChangeDetectorRef,
@@ -48,35 +69,10 @@ export class ChartComponent implements OnChanges {
     }
   }
 
-    
   private getChartForDate(date: Date) {
     this._service.getHistoryOnDate(date).pipe(
-      map(r => {
-          this.barChartLabels = [this._datePipe.transform(new Date(r.date), 'dd/MM/yyyy')!];
-          this.barChartData = [
-            {
-              data: [r.consumed/3600000],
-              label: 'consumed'
-            }
-            ,          
-            {
-              data: [r.charged/3600000],
-              label: 'EV charged'
-            },          
-            {
-              data: [r.generated /3600000],
-              label: 'solar-panels'
-            },
-            {
-              data: [r.imported/3600000],
-              label: 'imported'
-            },
-            {
-              data: [r.exported/3600000],
-              label: 'exported'
-            },
-          ];
-        })
+      tap(() => this.resetData()),
+      map(history => this.populateData([history]))
     ).subscribe(
       () => this._changeDetector.markForCheck()
     );
@@ -84,40 +80,33 @@ export class ChartComponent implements OnChanges {
 
   private getChartForRange(start: Date, end: Date) {
     this._service.getHistoryInRage(start, end).pipe(
-      map(history => {
-        this.barChartLabels = [];
-        this.barChartData = [];
-
-        history.days.map(r => {
-          this.barChartLabels.push(this._datePipe.transform(new Date(r.date), 'dd/MM/yyyy')!);
-          this.barChartData.push(
-            {
-              data: [r.consumed/3600000],
-              label: 'consumed'
-            }
-            ,          
-            {
-              data: [r.charged/3600000],
-              label: 'EV charged'
-            },          
-            {
-              data: [r.generated /3600000],
-              label: 'solar-panels'
-            },
-            {
-              data: [r.imported/3600000],
-              label: 'imported'
-            },
-            {
-              data: [r.exported/3600000],
-              label: 'exported'
-            },
-          );
-        });
-      })
+      tap(() => this.resetData()),
+      map(history => this.populateData(history.days))
     ).subscribe(
       () => this._changeDetector.markForCheck()
     );
+  }
+
+  /** reset back to empty data sets */
+  private resetData() {
+    this.barChartLabels = [];
+    this.consumed.data = [];
+    this.evCharged.data = [];
+    this.solarPanels.data = [];
+    this.imported.data = [];
+    this.exported.data = [];
+  }
+
+  /** populate data sets with received information */
+  private populateData(days: Array<DayCall>) {
+    days.map(r => {
+      this.barChartLabels.push(this._datePipe.transform(new Date(r.date), 'dd/MM/yyyy')!);
+      this.consumed.data?.push(r.consumed / 3600000);
+      this.evCharged.data?.push(r.charged / 3600000);
+      this.solarPanels.data?.push(r.generated / 3600000);
+      this.imported.data?.push(r.imported / 3600000);
+      this.exported.data?.push(r.exported / 3600000);
+    });
   }
 
 }

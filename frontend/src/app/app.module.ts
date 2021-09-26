@@ -1,18 +1,19 @@
 import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
 import { Configuration } from './configuration';
-import { MyenergiService } from './myenergi.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CustomDateAdapter } from './custom-date-adapter';
+import { MyenergiService } from './myenergi.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CustomDateAdapter } from './custom-date-adapter';
     ChartsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule

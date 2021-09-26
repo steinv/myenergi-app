@@ -1,15 +1,20 @@
 
-<mat-form-field appearance="legacy">
-  <mat-label>Choose Date Range</mat-label>
-  <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange">
-    <input matStartDate formControlName="start" placeholder="Start Date">
-    <input matEndDate formControlName="end" placeholder="End Date">
-  </mat-date-range-input>
+<nav>
+  <button class="right" mat-raised-button color="primary" (click)="today()">Today</button>
 
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-date-range-picker #picker></mat-date-range-picker>
+  <mat-form-field>
+    <mat-label>Choose Date Range</mat-label>
+    <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange" [min]="minimumDate" [max]="maximumDate">
+      <input matStartDate formControlName="start" placeholder="Start Date">
+      <input matEndDate formControlName="end" placeholder="End Date">
+    </mat-date-range-input>
 
-</mat-form-field>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+  </mat-form-field>
+</nav>
+
 
 <div class="chart-container">
   <app-chart [start]="dateRange.controls['start'].value"  [end]="dateRange.controls['end'].value"></app-chart>

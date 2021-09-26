@@ -1,3 +1,4 @@
+import { NodeWithI18n } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -8,15 +9,21 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-  private date = new Date();
+  private now = new Date();
+  public  maximumDate = new Date(Date.now() - 86400000);
+  public minimumDate = new Date(2021,0, 1);
   public dateRange = new FormGroup({
-    start: new FormControl(this.date),
-    end: new FormControl(this.date)
+    start: new FormControl(this.now),
+    end: new FormControl(this.now)
   });
   
   public constructor() {}
 
   public ngOnInit(): void {
     this.dateRange.controls['start'].value;
+  }
+
+  public today(): void {
+    this.dateRange.patchValue({start: this.now, end: this.now});
   }
 }

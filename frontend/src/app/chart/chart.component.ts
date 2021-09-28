@@ -1,8 +1,9 @@
-import { DatePipe, registerLocaleData } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-import { map, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { DayCall, MyenergiService } from '../myenergi.service';
 
 @Component({
@@ -11,13 +12,15 @@ import { DayCall, MyenergiService } from '../myenergi.service';
   styleUrls: ['./chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent implements OnChanges {
+export class ChartComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   start?: Date;
 
   @Input()
   end?: Date;
+
+  private updateSubject$ = new Subject<{start: Date, end: Date}>();
 
   private consumed: ChartDataSets = {
     label: 'consumed',
@@ -55,35 +58,44 @@ export class ChartComponent implements OnChanges {
     private readonly _datePipe: DatePipe,
   ) { }
 
-  public ngOnChanges(): void {
-    this.updateChart();
-  }
-
-  private updateChart() {
-    if(this.start && this.end) {
-      if(this.start.getTime() == this.end.getTime()) {
-        this.getChartForDate(this.start);
-      } else {
-        this.getChartForRange(this.start, this.end);
-      }
-    }
-  }
-
-  private getChartForDate(date: Date) {
-    this._service.getHistoryOnDate(date).pipe(
-      tap(() => this.resetData()),
-      map(history => this.populateData([history]))
+  public ngOnInit(): void {
+    this.updateSubject$.pipe(
+      switchMap(value => this.updateChart(value.start, value.end))
     ).subscribe(
       () => this._changeDetector.markForCheck()
     );
   }
 
-  private getChartForRange(start: Date, end: Date) {
-    this._service.getHistoryInRage(start, end).pipe(
+
+  public ngOnDestroy(): void {
+    this.updateSubject$.complete();
+  }
+
+  public ngOnChanges(): void {
+    if(this.start && this.end) {
+      this.updateSubject$.next({start: this.start, end: this.end});
+    }
+  }
+
+  private updateChart(start: Date, end: Date) {
+      if(start.getTime() == end.getTime()) {
+        return this.getChartForDate(start);
+      } else {
+        return this.getChartForRange(start, end);
+      }
+  }
+
+  private getChartForDate(date: Date): Observable<void> {
+    return this._service.getHistoryOnDate(date).pipe(
+      tap(() => this.resetData()),
+      map(history => this.populateData([history]))
+    );
+  }
+
+  private getChartForRange(start: Date, end: Date): Observable<void> {
+    return this._service.getHistoryInRage(start, end).pipe(
       tap(() => this.resetData()),
       map(history => this.populateData(history.days))
-    ).subscribe(
-      () => this._changeDetector.markForCheck()
     );
   }
 

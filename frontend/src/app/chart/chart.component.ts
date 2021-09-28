@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { DayCall, MyenergiService } from '../myenergi.service';
 
@@ -20,7 +20,8 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   end?: Date;
 
-  private updateSubject$ = new Subject<{start: Date, end: Date}>();
+  // replay subject with a cache of 1 element
+  private updateSubject$ = new ReplaySubject<{start: Date, end: Date}>(1);
 
   private consumed: ChartDataSets = {
     label: 'consumed',

@@ -37,8 +37,8 @@ In order to successfully start the application you'll need to provide a few envi
 
 ## demo
 
-Application hosted on heroku
+Application hosted on heroku (please mind that the first request may take a while, heroku puts my container to sleep when it's not been used for 30 minutes)
 * [Swagger](https://myenergi-backend.herokuapp.com/swagger-ui.html)
 * [Status call](https://myenergi-backend.herokuapp.com/zappi)
 * [Zappi '16189184'](https://myenergi-backend.herokuapp.com/zappi/16189184)
-* [History 23th of September 2021 for zappi '16189184'](https://myenergi-backend.herokuapp.com/zappi/16189184/2021/09/23)
+* [History 23th of September 2021 for zappi '16189184'](https://myenergi-backend.herokuapp.com/zappi/16189184/2021-09-23)

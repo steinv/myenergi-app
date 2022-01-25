@@ -47,7 +47,9 @@ public class MyEnergiConfiguration {
 
     @Bean
     public RestTemplate myEnergiRestTemplate(RestTemplateBuilder restTemplateBuilder) {
-        final String hostUri = String.format("https://s%s.myenergi.net/", hubSerial.substring(hubSerial.length() - 1));
+        // old hostUri before cloud migration uses the hubserial's last digit
+        // final String hostUri = String.format("https://s%s.myenergi.net/", hubSerial.substring(hubSerial.length() - 1));
+        final String hostUri = "https://s18.myenergi.net/";
         HttpHost host = new HttpHost(hostUri);
         CloseableHttpClient client =
                 HttpClientBuilder

@@ -42,3 +42,14 @@ Application hosted on heroku (please mind that the first request may take a whil
 * [Status call](https://myenergi-backend.herokuapp.com/zappi)
 * [Zappi '16189184'](https://myenergi-backend.herokuapp.com/zappi/16189184)
 * [History 23th of September 2021 for zappi '16189184'](https://myenergi-backend.herokuapp.com/zappi/16189184/2021-09-23)
+
+
+### [Spring native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/)
+
+1. Start docker
+2. Build an image `mvn spring-boot:build-image -DskipTests=true` 
+3. Push image to dockerhub `docker push steinv/myenergi:tagversion`
+
+Process can be automated with a pipeline:
+
+   `mvn spring-boot:build-image -Dspring-boot.build-image.imageName=docker.example.com/library/my-app:v1 -Dspring-boot.build-image.publish=true`

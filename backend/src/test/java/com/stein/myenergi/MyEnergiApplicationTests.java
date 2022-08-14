@@ -8,6 +8,7 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 class MyEnergiApplicationTests {
 
+	// TODO add wiremock for calls to myenergihub for testing environment
 	@Test
 	void contextLoads() {
 	}

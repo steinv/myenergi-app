@@ -5,8 +5,9 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<!-- Spring Native 0.12.1 only supports Spring Boot 2.7.1 -->
+		<version>2.7.1</version>
+		<relativePath/>
 	</parent>
 	<groupId>com.stein</groupId>
 	<artifactId>myenergi</artifactId>
@@ -15,6 +16,9 @@
 	<description>MyEnergi api</description>
 	<properties>
 		<java.version>11</java.version>
+		<apache-httpcomponents.version>4.3.5</apache-httpcomponents.version>
+		<springdoc.version>1.6.9</springdoc.version>
+		<springframework-experimental.version>0.12.1</springframework-experimental.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,6 +38,11 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.experimental</groupId>
+			<artifactId>spring-native</artifactId>
+			<version>${springframework-experimental.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
@@ -48,7 +57,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.3.5</version>
+			<version>${apache-httpcomponents.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.zaxxer</groupId>
@@ -66,22 +75,69 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.5.2</version>
+			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>spring-release</id>
+			<name>Spring release</name>
+			<url>https://repo.spring.io/release</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-release</id>
+			<name>Spring release</name>
+			<url>https://repo.spring.io/release</url>
+		</pluginRepository>
+	</pluginRepositories>
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.springframework.experimental</groupId>
+				<artifactId>spring-aot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>steinv/${project.artifactId}:${project.version}</name>
+						<builder>paketobuildpacks/builder:tiny</builder>
+						<publish>false</publish>
+						<env>
+							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+							<BP_JVM_VERSION>11</BP_JVM_VERSION>
+							<BP_NATIVE_IMAGE_BUILD_ARGUMENTS></BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
+						</env>
+					</image>
+					<docker>
+                        <publishRegistry>
+                            <username>user</username>
+                            <password>secret</password>
+                        </publishRegistry>
+                    </docker>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

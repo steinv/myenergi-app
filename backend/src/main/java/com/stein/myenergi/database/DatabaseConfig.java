@@ -3,6 +3,8 @@ package com.stein.myenergi.database;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,11 +25,9 @@ public class DatabaseConfig {
     private String password;
 
     @Bean
-    public DataSource dataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(dbUrl);
-        config.setUsername(username);
-        config.setPassword(password);
-        return new HikariDataSource(config);
+    public DataSource datasource(DataSourceProperties dataSourceProperties) {
+        return dataSourceProperties.initializeDataSourceBuilder()
+            .type(HikariDataSource.class)
+            .build();
     }
 }

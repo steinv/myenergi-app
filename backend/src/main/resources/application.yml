@@ -9,3 +9,5 @@ spring.jpa.hibernate.ddl-auto: update
 myenergi:
   hub.serial: ${MYENERGI_HUB_SERIAL}
   password: ${MYENERGI_PASSWORD}
+
+logging.level.com.zaxxer.hikari: DEBUG

@@ -8,7 +8,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
 import { Configuration } from './configuration';
@@ -23,13 +23,13 @@ import { MyenergiService } from './myenergi.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    ChartsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgChartsModule,
   ],
   providers: [
     MyenergiService,

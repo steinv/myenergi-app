@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { ChartType, ChartOptions, ChartDataset } from 'chart.js';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { DayCall, MyenergiService } from '../myenergi.service';
@@ -15,31 +14,31 @@ import { DayCall, MyenergiService } from '../myenergi.service';
 export class ChartComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-  start?: Date;
+  start?: Date | null;
 
   @Input()
-  end?: Date;
+  end?: Date | null;
 
   // replay subject with a cache of 1 element
   private updateSubject$ = new ReplaySubject<{start: Date, end: Date}>(1);
 
-  private consumed: ChartDataSets = {
+  private consumed: ChartDataset = {
     label: 'consumed',
     data: [],
   };
-  private evCharged: ChartDataSets = {
+  private evCharged: ChartDataset = {
     data: [],
     label: 'EV charged'
   };         
-  private solarPanels: ChartDataSets = {
+  private solarPanels: ChartDataset = {
     data: [],
     label: 'solar-panels'
   };
-  private imported: ChartDataSets =  {
+  private imported: ChartDataset =  {
     data: [],
     label: 'imported'
   };
-  private exported: ChartDataSets = {
+  private exported: ChartDataset = {
     data: [],
     label: 'exported'
   };
@@ -47,11 +46,12 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: Label[] = [];
+  // TLabel
+  public barChartLabels: string[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
-  public barChartData: ChartDataSets[] = [this.consumed, this.evCharged, this.solarPanels, this.imported, this.exported];
+  public barChartData: ChartDataset[] = [this.consumed, this.evCharged, this.solarPanels, this.imported, this.exported];
   
   public constructor(
     private readonly _changeDetector: ChangeDetectorRef,

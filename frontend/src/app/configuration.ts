@@ -21,8 +21,8 @@ export class Configuration {
         return this._httpClient.get<ConfigurationInterface>(path)
         .toPromise()
         .then(config => {
-            this.url = config.myenergi.url;
-            this.zappi = config.myenergi.zappi || '';
+            this.url = config?.myenergi.url || '';
+            this.zappi = config?.myenergi.zappi || '';
         });
     }
 }

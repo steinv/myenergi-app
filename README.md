@@ -8,7 +8,7 @@ A cron-job will scrape and persist data into a database.
  * [demo on heroku](https://myenergi-backend.herokuapp.com/zappi)
  * [readme backend](backend/README.md)
 
-Application hosted on heroku (please mind that the first request may take a while, heroku puts my container to sleep when it's not been used for 30 minutes)
+Application hosted as Spring Native image on heroku. Heroku puts my container to sleep when it's not been used for 30 minutes. Using a native image reduces the startup time significantly
 
 ## Frontend 
 

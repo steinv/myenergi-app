@@ -47,6 +47,6 @@ Application hosted on heroku (please mind that the first request may take a whil
 ### [Spring native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/)
 
 1. Start docker
-2. Build an image `mvn spring-boot:build-image -Ddocker-registry=registry.heroku.com -Ddocker-image-name=registry.heroku.com/myenergi-native/web -Ddocker-registry.publish=true -DskipTests=true` 
+2. Build an image `mvn spring-boot:build-image -Ddocker-registry="registry.heroku.com" -Ddocker-image-name="registry.heroku.com/myenergi-native/web" -DskipTests=true` 
 3. Push image to heroku `docker push registry.heroku.com/myenergi-native/web`
 4. start application `heroku container:release web --app myenergi-native`

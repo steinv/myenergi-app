@@ -17,9 +17,9 @@
 	<properties>
 		<java.version>11</java.version>
 		<docker-registry>docker.io</docker-registry>
-		<docker-registry.publish>false</docker-registry.publish>
-		<docker-registry.user/>
-		<docker-registry.password/>
+		<docker-registry-publish>false</docker-registry-publish>
+		<docker-registry-user/>
+		<docker-registry-password/>
 		<docker-image-name>${docker-registry}/${project.artifactId}:${project.version}</docker-image-name>
 		<apache-httpcomponents.version>4.5.13</apache-httpcomponents.version>
 		<modelmapper.version>2.4.4</modelmapper.version>
@@ -47,6 +47,11 @@
 			<groupId>org.springframework.experimental</groupId>
 			<artifactId>spring-native</artifactId>
 			<version>${springframework-experimental.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-native</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -129,7 +134,7 @@
 					<image>
 						<name>${docker-image-name}</name>
 						<builder>paketobuildpacks/builder:tiny</builder>
-						<publish>${docker-registry.publish}</publish>
+						<publish>${docker-registry-publish}</publish>
 						<env>
 							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
 							<BP_JVM_VERSION>11</BP_JVM_VERSION>
@@ -138,8 +143,8 @@
 					</image>
 					<docker>
                         <publishRegistry>
-                            <username>${docker-registry.user}</username>
-                            <password>${docker-registry.password}</password>
+                            <username>${docker-registry-user}</username>
+                            <password>${docker-registry-password}</password>
                         </publishRegistry>
                     </docker>
 				</configuration>

@@ -3,7 +3,6 @@ package com.stein.myenergi;
 import com.stein.myenergi.api.dto.Zappi;
 import com.stein.myenergi.service.MyEnergiApiService;
 import com.stein.myenergi.service.MyEnergiService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Component
-@RequiredArgsConstructor
 /**
  * If you are hosting this application on the cloud scaled from 0 pods, like I am doing, these scheduleTasks will not work
  * Because the pod is inactivity the @Scheduled cron job won't be picked up..
@@ -23,6 +21,11 @@ public class ScheduledTasks {
 
     private final MyEnergiApiService apiService;
     private final MyEnergiService service;
+
+    public ScheduledTasks(MyEnergiApiService apiService, MyEnergiService service) {
+        this.apiService = apiService;
+        this.service = service;
+    }
 
     /**
      * Daily, at 6am, persists historic data of your zappi device(s)

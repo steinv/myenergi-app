@@ -4,7 +4,6 @@ import com.stein.myenergi.api.dto.HistoryDay;
 import com.stein.myenergi.database.HistoryRepository;
 import com.stein.myenergi.database.entities.HistoryEntity;
 import com.stein.myenergi.database.entities.HistoryId;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +12,17 @@ import java.util.Collections;
 import java.util.Date;
 
 @Service
-@RequiredArgsConstructor
 public class MyEnergiService {
 
     private final ModelMapper modelMapper;
     private final MyEnergiApiService apiService;
     private final HistoryRepository historyRepository;
+
+    public MyEnergiService(ModelMapper modelMapper, MyEnergiApiService apiService, HistoryRepository historyRepository) {
+        this.modelMapper = modelMapper;
+        this.apiService = apiService;
+        this.historyRepository = historyRepository;
+    }
 
     /**
      * Persist Historical data for a zappi serial on a certain point in time;

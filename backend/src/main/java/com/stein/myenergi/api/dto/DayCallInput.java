@@ -1,11 +1,9 @@
 package com.stein.myenergi.api.dto;
 
 import com.stein.myenergi.DeviceType;
-import lombok.Getter;
 
 import java.util.Date;
 
-@Getter
 public class DayCallInput implements MyenergiCallInput {
 
     private final DeviceType deviceType;
@@ -21,5 +19,17 @@ public class DayCallInput implements MyenergiCallInput {
     @Override
     public Object[] getParameters() {
         return null;
+    }
+
+    public DeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

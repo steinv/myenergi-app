@@ -1,13 +1,22 @@
 package com.stein.myenergi.dto;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.util.List;
 
-@Data
-@Builder
 public class HistoryOutput {
 
-    private final List<DayOutput> days;
+    private List<DayOutput> days;
+
+    public HistoryOutput() {}
+    
+    public HistoryOutput(List<DayOutput> days) {
+        this.days = days;
+    }
+
+    public List<DayOutput> getDays() {
+        return days;
+    }
+
+    public void setDays(List<DayOutput> days) {
+        this.days = days;
+    }
 }

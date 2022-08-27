@@ -1,16 +1,10 @@
 package com.stein.myenergi.dto;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.util.Date;
 
-@Data
-@Builder
 public class DayOutput {
     // date on which this data was collected
     private Date date;
-
     // serial of which device this historic data is
     private String serial;
 
@@ -27,4 +21,72 @@ public class DayOutput {
 
     // electricity in joules consumed
     private int consumed;
+
+    public DayOutput() {}
+
+    public DayOutput(Date date, String serial, int imported, int exported, int generated, int charged, int consumed) {
+        this.date = date;
+        this.serial = serial;
+        this.imported = imported;
+        this.exported = exported;
+        this.generated = generated;
+        this.charged = charged;
+        this.consumed = consumed;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public int getImported() {
+        return imported;
+    }
+
+    public void setImported(int imported) {
+        this.imported = imported;
+    }
+
+    public int getExported() {
+        return exported;
+    }
+
+    public void setExported(int exported) {
+        this.exported = exported;
+    }
+
+    public int getGenerated() {
+        return generated;
+    }
+
+    public void setGenerated(int generated) {
+        this.generated = generated;
+    }
+
+    public int getCharged() {
+        return charged;
+    }
+
+    public void setCharged(int charged) {
+        this.charged = charged;
+    }
+
+    public int getConsumed() {
+        return consumed;
+    }
+
+    public void setConsumed(int consumed) {
+        this.consumed = consumed;
+    }
 }

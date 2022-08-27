@@ -1,13 +1,7 @@
 package com.stein.myenergi.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 /**
  * Example output:
@@ -56,4 +50,19 @@ import lombok.NoArgsConstructor;
 public class StatusCallOutput implements MyenergiCallOutput {
 
     private Zappi[] zappi;
+
+    // default constructor
+    public StatusCallOutput() {}
+
+    public StatusCallOutput(Zappi[] zappi) {
+        this.zappi = zappi;
+    }
+
+    public Zappi[] getZappi() {
+        return zappi;
+    }
+
+    public void setZappi(Zappi[] zappi) {
+        this.zappi = zappi;
+    }
 }

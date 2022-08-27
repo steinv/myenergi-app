@@ -79,10 +79,6 @@
 			<artifactId>HikariCP</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
@@ -138,6 +134,9 @@
 					<image>
 						<name>${docker-image-name}</name>
 						<builder>paketobuildpacks/builder:tiny</builder>
+						<buildpacks>
+							<buildpack>gcr.io/paketo-buildpacks/java-native-image:7.28.0</buildpack>
+						</buildpacks>
 						<publish>${docker-registry-publish}</publish>
 						<env>
 							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>

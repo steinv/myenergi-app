@@ -1,10 +1,7 @@
 package com.stein.myenergi.api.dto;
 
 import com.stein.myenergi.DeviceType;
-import lombok.Getter;
-import org.springframework.lang.Nullable;
 
-@Getter
 public class StatusCallInput implements MyenergiCallInput {
 
     private DeviceType deviceType;
@@ -18,8 +15,24 @@ public class StatusCallInput implements MyenergiCallInput {
         this.deviceType = d;
     }
 
-    public StatusCallInput(DeviceType d, @Nullable String serial) {
-        this.deviceType = d;
+    public StatusCallInput(DeviceType deviceType, String serial) {
+        this.deviceType = deviceType;
+        this.serial = serial;
+    }
+
+    public DeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
         this.serial = serial;
     }
 

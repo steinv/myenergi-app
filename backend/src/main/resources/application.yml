@@ -5,6 +5,11 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa.hibernate.ddl-auto: update
 
+management:
+  endpoint:
+    health:
+      show-details: always
+
 server:
   port: ${PORT:8080}
 

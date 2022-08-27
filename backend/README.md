@@ -22,31 +22,28 @@ In order to successfully start the application you'll need to provide a few envi
 * MYENERGI_HUB_SERIAL
 * MYENERGI_PASSWORD
 
-### deploying on heroku
+### deploying on Render
 
-1. If you fork this repository, create a subtree on git to connect
-   ```
-   git subtree push --prefix backend origin heroku
-   ```
+1. create a postgres database on Render to store your data
 
-2. create a postgres database on heroku to store your data
+3. provide environment variables (see above) that connect to your myenergi hub and your database
 
-3. provide environment variables that connect to your myenergi hub
+4. setup automatic deployment by linking your github fork
 
-4. setup automatic deployment from the `heroku`-branch
+5. the image mentioned in the dockerfile will be deployed automatically.
 
 ## demo
 
-Application hosted on heroku (please mind that the first request may take a while, heroku puts my container to sleep when it's not been used for 30 minutes)
-* [Swagger](https://myenergi-native.herokuapp.com/swagger-ui.html)
-* [Status call](https://myenergi-native.herokuapp.com/zappi)
-* [Zappi '16189184'](https://myenergi-native.herokuapp.com/zappi/16189184)
-* [History 23th of September 2021 for zappi '16189184'](https://myenergi-native.herokuapp.com/zappi/16189184/2021-09-23)
+Application hosted on Render (please mind that the first request may take a while, Render puts my container to sleep when it's not been used for a while)
+* [Swagger](https://myenergi-native.onrender.com/swagger-ui.html)
+* [Status call](https://myenergi-native.onrender.com/zappi)
+* [Zappi '16189184'](https://myenergi-native.onrender.com/zappi/16189184)
+* [History 23th of September 2021 for zappi '16189184'](https://myenergi-native.onrender.com/zappi/16189184/2021-09-23)
 
 
 ### [Spring native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/)
 
 1. Start docker
-2. Build an image `mvn spring-boot:build-image -Ddocker-registry="registry.heroku.com" -Ddocker-image-name="registry.heroku.com/myenergi-native/web" -DskipTests=true` 
-3. Push image to heroku `docker push registry.heroku.com/myenergi-native/web`
-4. start application `heroku container:release web --app myenergi-native`
+2. Build an image `mvn spring-boot:build-image -Ddocker-image-name="docker.io/steinv/myenergi:latest" -DskipTests=true` 
+3. Push image to registry `docker push docker.io/steinv/myenergi:latest`
+4. redeploy application on [Render.com](https://render.com)

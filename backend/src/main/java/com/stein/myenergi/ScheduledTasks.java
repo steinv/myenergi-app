@@ -13,8 +13,8 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 /**
- * If you are hosting this application on heroku, like I am doing, these scheduleTasks will not work
- * Heroku puts your application to sleep after 30 minutes of inactivity.
+ * If you are hosting this application on the cloud scaled from 0 pods, like I am doing, these scheduleTasks will not work
+ * Because the pod is inactivity the @Scheduled cron job won't be picked up..
  *
  * As an alternative you can use Google Cloud scheduler
  * https://console.cloud.google.com/cloudscheduler/jobs/new

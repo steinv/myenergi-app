@@ -6,7 +6,7 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.AuthCache;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.auth.DigestScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
@@ -66,7 +66,7 @@ public class MyEnergiConfiguration {
                         DigestScheme digestAuth = new DigestScheme();
                         authCache.put(host, digestAuth);
                         BasicHttpContext localcontext = new BasicHttpContext();
-                        localcontext.setAttribute(ClientContext.AUTH_CACHE, authCache);
+                        localcontext.setAttribute(HttpClientContext.AUTH_CACHE, authCache);
                         return localcontext;
                     }));
                     return requestFactory;

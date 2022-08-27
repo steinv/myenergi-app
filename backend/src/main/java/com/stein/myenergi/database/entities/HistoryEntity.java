@@ -1,7 +1,11 @@
 package com.stein.myenergi.database.entities;
 
 import com.stein.myenergi.api.dto.HistoryDay;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -11,6 +15,9 @@ import java.io.Serializable;
 @Entity(name = "history")
 @Table(name = "history")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class HistoryEntity implements Serializable {
 
     @EmbeddedId

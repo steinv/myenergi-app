@@ -1,7 +1,7 @@
 package com.stein.myenergi.service;
 
 import com.stein.myenergi.api.dto.HistoryDay;
-import com.stein.myenergi.database.HistoryRepository;
+import com.stein.myenergi.database.HistoryTable;
 import com.stein.myenergi.database.entities.HistoryEntity;
 import com.stein.myenergi.database.entities.HistoryId;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class MyEnergiService {
 
     private final ModelMapper modelMapper;
     private final MyEnergiApiService apiService;
-    private final HistoryRepository historyRepository;
+    private final HistoryTable historyTable;
 
     /**
      * Persist Historical data for a zappi serial on a certain point in time;
@@ -29,7 +29,7 @@ public class MyEnergiService {
         HistoryDay[] zappiHistory = this.apiService.getZappiHistory(zappiSerial, date);
         HistoryEntity entity = modelMapper.map(zappiHistory, HistoryEntity.class);
         entity.setId(new HistoryId(date, zappiSerial));
-        this.historyRepository.save(entity);
+        this.historyTable.save(entity);
     }
 
     /**
@@ -41,13 +41,13 @@ public class MyEnergiService {
      */
     public HistoryEntity findHistoricData(String serial, Date date) {
         HistoryId id = new HistoryId(date, serial);
-        return this.historyRepository.findById(id).orElseGet(() -> {
+        return this.historyTable.findById(id).orElseGet(() -> {
             HistoryDay[] zappiHistory = this.apiService.getZappiHistory(serial, date);
             return modelMapper.map(zappiHistory, HistoryEntity.class);
         });
     }
 
     public Collection<HistoryEntity> findHistoricData(String serial, Date start, Date end) {
-        return this.historyRepository.findByPeriod(serial, start, end).orElse(Collections.emptyList());
+        return this.historyTable.findByPeriod(serial, start, end).orElse(Collections.emptyList());
     }
 }

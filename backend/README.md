@@ -16,6 +16,7 @@ Persisting data into the repository
 In order to successfully start the application you'll need to provide a few environment specific variables
 
 ### environment variables
+* SPRING_ACTIVE_PROFILES=sql
 * SPRING_DATASOURCE_URL
 * SPRING_DATASOURCE_USERNAME
 * SPRING_DATASOURCE_PASSWORD

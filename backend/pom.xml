@@ -22,6 +22,7 @@
 		<docker-registry-password/>
 		<docker-image-name>${docker-registry}/${project.artifactId}:${project.version}</docker-image-name>
 		<apache-httpcomponents.version>4.5.13</apache-httpcomponents.version>
+		<google-cloud.version>2.11.0</google-cloud.version>
 		<modelmapper.version>2.4.4</modelmapper.version>
 		<springdoc.version>1.6.9</springdoc.version>
 		<springframework-experimental.version>0.12.1</springframework-experimental.version>
@@ -69,6 +70,11 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${apache-httpcomponents.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-datastore</artifactId>
+			<version>${google-cloud.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.zaxxer</groupId>

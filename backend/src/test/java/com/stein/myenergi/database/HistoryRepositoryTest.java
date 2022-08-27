@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Transactional
 class HistoryRepositoryTest {
     @Autowired
-    private HistoryRepository repo;
+    private HistoryTable repo;
 
     private Calendar calendar;
     private static final String DUMMY_SERIAL = "12345678";

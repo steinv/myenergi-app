@@ -3,7 +3,7 @@ package com.stein.myenergi;
 import com.stein.myenergi.api.dto.HistoryDay;
 import com.stein.myenergi.api.dto.StatusCallOutput;
 import com.stein.myenergi.api.dto.Zappi;
-import com.stein.myenergi.database.HistoryRepository;
+import com.stein.myenergi.database.HistoryTable;
 import com.stein.myenergi.database.entities.HistoryEntity;
 import com.stein.myenergi.service.MyEnergiApiService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ class ScheduledTasksTest {
     private ScheduledTasks scheduledTasks;
 
     @MockBean
-    HistoryRepository historyRepository;
+    HistoryTable historyTable;
 
     @MockBean
     MyEnergiApiService apiService;
@@ -66,7 +66,7 @@ class ScheduledTasksTest {
 
         this.scheduledTasks.persistHistoricZappiData();
 
-        verify(historyRepository, times(1)).save(argThat(r -> {
+        verify(historyTable, times(1)).save(argThat(r -> {
                     assertThat(r.getId().getSerial()).isEqualTo(DUMMY_ZAPPI.getSerialNumber());
                     assertThat(r.getExported()).isEqualTo(4000);
                     assertThat(r.getCharged()).isEqualTo(10000);

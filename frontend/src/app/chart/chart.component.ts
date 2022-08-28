@@ -43,15 +43,15 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
     label: 'exported'
   };
 
-  public barChartOptions: ChartOptions = {
+  public chartOptions: ChartOptions = {
     responsive: true,
   };
   // TLabel
-  public barChartLabels: string[] = [];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-  public barChartData: ChartDataset[] = [this.consumed, this.evCharged, this.solarPanels, this.imported, this.exported];
+  public chartLabels: string[] = [];
+  public chartType: ChartType = 'bar';
+  public chartLegend = true;
+  public chartPlugins = [];
+  public chartDataset: ChartDataset[] = [this.consumed, this.evCharged, this.solarPanels, this.imported, this.exported];
   
   public constructor(
     private readonly _changeDetector: ChangeDetectorRef,
@@ -80,8 +80,10 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
 
   private updateChart(start: Date, end: Date) {
       if(start.getTime() == end.getTime()) {
+        this.chartType = 'bar';
         return this.getChartForDate(start);
       } else {
+        this.chartType = 'line';
         return this.getChartForRange(start, end);
       }
   }
@@ -102,7 +104,7 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
 
   /** reset back to empty data sets */
   private resetData() {
-    this.barChartLabels = [];
+    this.chartLabels = [];
     this.consumed.data = [];
     this.evCharged.data = [];
     this.solarPanels.data = [];
@@ -113,7 +115,7 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
   /** populate data sets with received information */
   private populateData(days: Array<DayCall>) {
     days.map(r => {
-      this.barChartLabels.push(this._datePipe.transform(new Date(r.date), 'dd/MM/yyyy')!);
+      this.chartLabels.push(this._datePipe.transform(new Date(r.date), 'dd/MM/yyyy')!);
       this.consumed.data?.push(r.consumed / 3600000);
       this.evCharged.data?.push(r.charged / 3600000);
       this.solarPanels.data?.push(r.generated / 3600000);

@@ -1,11 +1,11 @@
 <canvas baseChart 
-    *ngIf="barChartLabels && barChartLabels.length > 0"
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [plugins]="barChartPlugins"
-    [legend]="barChartLegend"
-    [type]="barChartType">
+    *ngIf="chartLabels && chartLabels.length > 0"
+    [datasets]="chartDataset"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    [plugins]="chartPlugins"
+    [legend]="chartLegend"
+    [type]="chartType">
 </canvas>
 
 <section>

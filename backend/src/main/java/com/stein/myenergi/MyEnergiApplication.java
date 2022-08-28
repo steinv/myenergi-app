@@ -12,7 +12,9 @@ import com.stein.myenergi.database.entities.HistoryId;
 
 import org.springframework.nativex.hint.ProxyBits;
 import org.springframework.nativex.hint.SerializationHint;
+import org.springframework.nativex.hint.TypeHint;
 
+// AOT proxy for retryable
 @AotProxyHint(
 	targetClass=com.stein.myenergi.api.calls.DayCall.class, 
 	interfaces={org.springframework.retry.interceptor.Retryable.class}, 
@@ -23,7 +25,10 @@ import org.springframework.nativex.hint.SerializationHint;
 	interfaces={org.springframework.retry.interceptor.Retryable.class}, 
 	proxyFeatures = ProxyBits.IS_STATIC
 )
+// The combined-key HistoryId and it's related classes need to be serializable for hibernate. 
 @SerializationHint(types = {HistoryId.class, HistoryDay.class, HistoryEntity.class, String.class})
+// ClassNotFoundException at runtime when this isn't hinted for the native image
+@TypeHint(types = {java.sql.Date.class})
 @SpringBootApplication
 @EnableRetry
 @EnableScheduling

@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 @Configuration
 /**
  * Provide necessary environment variables
- * https://data.heroku.com/datastores/
  */
 public class DatabaseConfig {
 

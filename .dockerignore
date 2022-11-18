@@ -1,0 +1,89 @@
+# flyctl launch added from .gitignore
+**\HELP.md
+**\backend\target
+!**\.mvn\wrapper\maven-wrapper.jar
+!**\**\src\main\**\target
+!**\**\src\test\**\target
+**\docker-compose.yml
+
+### maven ###
+**\mvnw
+**\mvnw.cmd
+**\.mvn\**
+
+### STS ###
+**\.apt_generated
+**\.classpath
+**\.factorypath
+**\.project
+**\.settings
+**\.springBeans
+**\.sts4-cache
+
+### IntelliJ IDEA ###
+**\.idea
+**\*.iws
+**\*.iml
+**\*.ipr
+
+### NetBeans ###
+nbproject\private
+nbbuild
+dist
+nbdist
+.nb-gradle
+**\build
+!**\**\src\main\**\build
+!**\**\src\test\**\build
+
+
+### VS Code ###
+**\.vscode
+
+# flyctl launch added from frontend\.gitignore
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+frontend\dist
+frontend\tmp
+frontend\out-tsc
+# Only exists if Bazel was run
+frontend\bazel-out
+
+# dependencies
+frontend\node_modules
+
+# profiling files
+frontend\**\chrome-profiler-events*.json
+
+# IDEs and editors
+frontend\.idea
+frontend\**\.project
+frontend\**\.classpath
+frontend\**\.c9
+frontend\**\*.launch
+frontend\**\.settings
+frontend\**\*.sublime-workspace
+
+# IDE - VSCode
+frontend\**\.vscode\*
+!frontend\**\.vscode\settings.json
+!frontend\**\.vscode\tasks.json
+!frontend\**\.vscode\launch.json
+!frontend\**\.vscode\extensions.json
+frontend\**\.history\*
+
+# misc
+frontend\.angular\cache
+frontend\.sass-cache
+frontend\connect.lock
+frontend\coverage
+frontend\libpeerconnection.log
+frontend\**\npm-debug.log
+frontend\**\yarn-error.log
+frontend\**\testem.log
+frontend\typings
+
+# System Files
+frontend\**\.DS_Store
+frontend\**\Thumbs.db

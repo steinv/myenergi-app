@@ -22,16 +22,6 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
   // replay subject with a cache of 1 element
   private updateSubject$ = new ReplaySubject<{start: Date, end: Date}>(1);
 
-  /**
-    [75, 192, 192], 4BC0C0
-    [151, 187, 205],
-    [220, 220, 220],
-    [247, 70, 74],
-    [70, 191, 189],
-    [253, 180, 92],
-    [148, 159, 177],
-    [77, 83, 96]
-   */
   private consumed: ChartDataset = {
     label: 'consumed',
     data: [],

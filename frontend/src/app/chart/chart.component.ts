@@ -22,25 +22,45 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
   // replay subject with a cache of 1 element
   private updateSubject$ = new ReplaySubject<{start: Date, end: Date}>(1);
 
+  /**
+    [75, 192, 192], 4BC0C0
+    [151, 187, 205],
+    [220, 220, 220],
+    [247, 70, 74],
+    [70, 191, 189],
+    [253, 180, 92],
+    [148, 159, 177],
+    [77, 83, 96]
+   */
   private consumed: ChartDataset = {
     label: 'consumed',
     data: [],
+    backgroundColor: '#ff6384',
+    pointBackgroundColor: '#ff6384'
   };
   private evCharged: ChartDataset = {
     data: [],
-    label: 'EV charged'
+    label: 'EV charged',
+    backgroundColor: '#36A2EB',
+    pointBackgroundColor: '#36A2EB'
   };         
   private solarPanels: ChartDataset = {
     data: [],
-    label: 'solar-panels'
+    label: 'solar-panels',
+    backgroundColor: '#FFCE56',
+    pointBackgroundColor: '#FFCE56'
   };
   private imported: ChartDataset =  {
     data: [],
-    label: 'imported'
+    label: 'imported',
+    backgroundColor: '#4BC0C0',
+    pointBackgroundColor: '#4BC0C0'
   };
   private exported: ChartDataset = {
     data: [],
-    label: 'exported'
+    label: 'exported',
+    backgroundColor: '#E7E9EB',
+    pointBackgroundColor: '#E7E9EB'
   };
 
   public chartOptions: ChartOptions = {
@@ -51,7 +71,7 @@ export class ChartComponent implements OnInit, OnChanges, OnDestroy {
   public chartType: ChartType = 'bar';
   public chartLegend = true;
   public chartPlugins = [];
-  public chartDataset: ChartDataset[] = [this.consumed, this.evCharged, this.solarPanels, this.imported, this.exported];
+  public chartDataset: ChartDataset[] = [this.consumed, this.evCharged, this.solarPanels, this.exported, this.imported];
   
   public constructor(
     private readonly _changeDetector: ChangeDetectorRef,

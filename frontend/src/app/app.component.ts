@@ -62,9 +62,15 @@ export class AppComponent implements OnInit {
       consumed: `=(${row.consumed} / 3600000)`,
     }).join(',')).join('\n');
 
-    return `date,Zappi serial,generated kWh,imported kWh,exported kWh,charged kWh,consumed kWh
-    ${csvData}
-    
-    Total charged:,"=ROUND(SUM(F2:F999);2)"`;
+    return [
+      // header
+      'date,Zappi serial,generated kWh,imported kWh,exported kWh,charged kWh,consumed kWh',
+      // data
+      csvData,
+      //empty line
+      ,
+      // sum of total charged in kWh rounded with 2 decimals
+      'Total charged:,"=ROUND(SUM(F2:F999);2)"'
+    ].join('\n');
   }
 }

@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 import { Configuration } from './configuration';
 
 export interface TODO {
@@ -12,6 +12,7 @@ export interface TODO {
 export interface HistoryCall {
   days: Array<DayCall>;
 }
+
 export interface DayCall {
   date: string;
   serial: string;
@@ -25,8 +26,11 @@ export interface DayCall {
 @Injectable()
 export class MyenergiService {
 
+  private latest$ = new ReplaySubject<HistoryCall | DayCall>(1);
+  public latestData = this.latest$.asObservable();
+
   constructor(
-    private readonly _httpClient: HttpClient, 
+    private readonly _httpClient: HttpClient,
     private readonly _config: Configuration,
     private readonly _datePipe: DatePipe,
   ) { }
@@ -37,22 +41,22 @@ export class MyenergiService {
 
   public getStatusZappi(serial?: string): Observable<TODO> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<TODO>('/zappi/'+zappiSerial);
+    return this.doCall<TODO>('/zappi/' + zappiSerial);
   }
 
   public getHistoryOnDate(date: Date, serial?: string): Observable<DayCall> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<DayCall>('/zappi/'+zappiSerial+"/"+this._datePipe.transform(date, 'yyyy-MM-dd'));
+    return this.doCall<DayCall>('/zappi/' + zappiSerial + "/" + this._datePipe.transform(date, 'yyyy-MM-dd')).pipe(tap(r => this.latest$.next(r)));
   }
 
   public getHistoryInRage(start: Date, end: Date, serial?: string): Observable<HistoryCall> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<HistoryCall>('/zappi/'+zappiSerial+"/"+this._datePipe.transform(start, 'yyyy-MM-dd')+"/"+this._datePipe.transform(end, 'yyyy-MM-dd'));
+    return this.doCall<HistoryCall>('/zappi/' + zappiSerial + "/" + this._datePipe.transform(start, 'yyyy-MM-dd') + "/" + this._datePipe.transform(end, 'yyyy-MM-dd')).pipe(tap(r => this.latest$.next(r)));
   }
 
   public liveView(serial: string, date: Date): Observable<TODO> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<TODO>('/zappi/'+zappiSerial+"/"+this._datePipe.transform(date, 'yyyy-MM-dd'));
+    return this.doCall<TODO>('/zappi/' + zappiSerial + "/" + this._datePipe.transform(date, 'yyyy-MM-dd'));
   }
 
   private doCall<T>(resource: string) {

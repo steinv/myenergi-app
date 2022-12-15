@@ -19,3 +19,7 @@
 <div class="chart-container">
   <app-chart [start]="dateRange.controls['start'].value"  [end]="dateRange.controls['end'].value"></app-chart>
 </div>
+
+<section>
+  <button mat-raised-button color="secondary" (click)="download()">Download</button>
+</section>

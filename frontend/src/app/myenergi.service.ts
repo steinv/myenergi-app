@@ -26,7 +26,7 @@ export interface DayCall {
 @Injectable()
 export class MyenergiService {
 
-  private latest$ = new ReplaySubject<HistoryCall | DayCall>(1);
+  private latest$ = new ReplaySubject<HistoryCall>(1);
   public latestData = this.latest$.asObservable();
 
   constructor(
@@ -46,7 +46,7 @@ export class MyenergiService {
 
   public getHistoryOnDate(date: Date, serial?: string): Observable<DayCall> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<DayCall>('/zappi/' + zappiSerial + "/" + this._datePipe.transform(date, 'yyyy-MM-dd')).pipe(tap(r => this.latest$.next(r)));
+    return this.doCall<DayCall>('/zappi/' + zappiSerial + "/" + this._datePipe.transform(date, 'yyyy-MM-dd')).pipe(tap(r => this.latest$.next({days: [r]})));
   }
 
   public getHistoryInRage(start: Date, end: Date, serial?: string): Observable<HistoryCall> {

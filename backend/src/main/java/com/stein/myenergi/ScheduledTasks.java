@@ -42,7 +42,6 @@ public class ScheduledTasks {
         }
     }
 
-    // TODO determine which date(s) to fetch
     private Date[] datesToFetch() {
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);

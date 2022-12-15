@@ -53,16 +53,18 @@ export class AppComponent implements OnInit {
 
   private mapDataToCsv(data: HistoryCall): string {
     const csvData = data.days.map(row => Object.values({
-      date: this.datePipe.transform(row.date, 'yyyy-MM-dd'),
+      date: this.datePipe.transform(row.date, 'dd/MM/yyyy'),
       serial: row.serial,
-      generated: row.generated / 3600000,
-      imported: row.imported / 3600000,
-      exported: row.exported / 3600000,
-      charged: row.charged / 3600000,
-      consumed: row.consumed / 3600000,
+      generated: `=(${row.generated} / 3600000)`,
+      imported: `=(${row.imported} / 3600000)`,
+      exported: `=(${row.exported} / 3600000)`,
+      charged: `=(${row.charged} / 3600000)`,
+      consumed: `=(${row.consumed} / 3600000)`,
     }).join(',')).join('\n');
 
-    return `date,serial,generated kWh,imported kWh,exported kWh,charged kWh,consumed kWh
-    ${csvData}`;
+    return `date,Zappi serial,generated kWh,imported kWh,exported kWh,charged kWh,consumed kWh
+    ${csvData}
+    
+    Total charged:,"=ROUND(SUM(F2:F999);2)"`;
   }
 }

@@ -14,6 +14,6 @@ import java.util.Optional;
 @Repository
 public interface HistoryRepository extends CrudRepository<HistoryEntity, HistoryId> {
 
-    @Query("SELECT h FROM history h WHERE (h.id.serial = :serial AND h.id.date >= :start AND h.id.date <= :end)")
+    @Query("SELECT h FROM history h WHERE (h.id.serial = :serial AND h.id.date >= :start AND h.id.date <= :end) ORDER BY h.id.date")
     Optional<Collection<HistoryEntity>> findByPeriod(@Param("serial") String serial, @Param("start") Date start, @Param("end")Date end);
 }

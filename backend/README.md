@@ -81,4 +81,18 @@ Application is hosted on Fly.io (please mind that the first request may take a w
 * [History 23th of September 2021 for zappi '16189184'](https://myenergi-native.fly.dev/zappi/16189184/2021-09-23)
 
 
+## Troubleshooting
+
+Connection issues to the db could be resolved by restarting the fly.io machine
+
+```
+ fly machines list -a myenergi-db
+ fly machines restart 9080173a629138 -a myenergi-db
+```
+
+
+
+
+
+
 

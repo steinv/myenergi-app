@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { Configuration } from './configuration';
 
 export interface TODO {
@@ -51,7 +51,13 @@ export class MyenergiService {
 
   public getHistoryInRage(start: Date, end: Date, serial?: string): Observable<HistoryCall> {
     const zappiSerial = serial || this._config.zappi;
-    return this.doCall<HistoryCall>('/zappi/' + zappiSerial + "/" + this._datePipe.transform(start, 'yyyy-MM-dd') + "/" + this._datePipe.transform(end, 'yyyy-MM-dd')).pipe(tap(r => this.latest$.next(r)));
+    return this.doCall<HistoryCall>('/zappi/' + zappiSerial + "/" + this._datePipe.transform(start, 'yyyy-MM-dd') + "/" + this._datePipe.transform(end, 'yyyy-MM-dd'))
+      .pipe(
+        tap(r => {
+          //r.days.sort((d1, d2) => d1.date.localeCompare(d2.date))
+          this.latest$.next(r)
+        })
+      );
   }
 
   public liveView(serial: string, date: Date): Observable<TODO> {
